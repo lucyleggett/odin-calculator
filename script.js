@@ -17,3 +17,19 @@ function divide(...numbers) {
     if (numbers.length === 0) return 0;
     return numbers.reduce((acc, curr) => acc / curr);
 }
+
+let num1;
+let num2;
+let operator;
+
+function operate(num1, operator, num2) {
+    if (operator === "+"){
+        add(num1, num2);
+    } else if (operator === "-") {
+        subtract(num1, num2);
+    } else if (operator === "*") {
+        multiply(num1, num2);
+    } else if (operator === "/") {
+        divide(num1,num2);
+    }
+}
