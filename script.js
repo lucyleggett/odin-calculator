@@ -18,8 +18,8 @@ function divide(...numbers) {
     return numbers.reduce((acc, curr) => acc / curr);
 }
 
-let num1;
-let num2;
+let num1 = "";
+let num2 = "";
 let operator;
 
 function operate(num1, operator, num2) {
@@ -33,19 +33,48 @@ function operate(num1, operator, num2) {
         divide(num1,num2);
     }
 }
-let clickCount = 0;
 
-const buttons = document.querySelector("button")
-buttons.addEventListener("click",(event) => {
-    clickCount++
+let state = "initial";
 
-    if (clickCount === 1 && event.target.class === "number") {
-        num1 = event.target;
-    } else if (clickCount === 2 && event.target.class === "operator") {
-        operator = event.target;
-    } else if (clickCount === 3 && event.target.class === "number") {
-        num2 = event.target;
-    }
-})
+const buttons = document.querySelectorAll("button");
+buttons.forEach(button => {
+    button.addEventListener("click", handleEvent);
+});
 
-function evaluate
+function handleEvent(event) {
+    let display = document.getElementById("display")
+    display.textContent += event.target.innerText;
+    // if (state === "initial" && event.target.class === "number") {
+    //     num1 += event.target.innerText;
+    // }
+    // else if (state === "initial" && event.target.class === "operator") {
+    //     operator = event.target.innerText;
+    //     state = "operate";
+    // }
+    // else if (state === "operate" && event.target.class === "number") {
+    //     num2 += event.target.innerText;
+    // }
+    // else if (event.target.class === "evaluate") {
+    //     let result = operate(num1, operator, num2);
+    // }
+}
+
+    // if (state === "initial" && event.target.class === "number") {
+    //     num1 += event.target;
+    //     console.log(num1);
+    //     // text = num1;
+    // } else if (state === "initial" && event.target.class === "operator") {
+    //     operator = event.target;
+    //     console.log(num1 + operator)
+    //     // state = "operate";
+    //     // text += operator;
+    // } else if (state === "operate" && event.target.class === "number") {
+    //     num2 += event.target;
+    //     console.log(num1 + operator + num2)
+    //     // text += num2;
+    // } else if (event.target.class === "evaluate") {
+    //     let result = operate(num1, operator, num2);
+    //     console.log(result)
+    //     // text = result;
+    // }
+    // })
