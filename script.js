@@ -22,21 +22,29 @@ let num1 = "";
 let num2 = "";
 let operator;
 
+let state = "initial";
+let result;
+
 function operate(num1, num2, operator) {
-    let result;
+    let output;
     if (operator === "add"){
-        return result = add(num1, num2);
+        output = add(num1, num2);
     } else if (operator === "subtract") {
-        return result = subtract(num1, num2);
+        output = subtract(num1, num2);
     } else if (operator === "multiply") {
-        return result = multiply(num1, num2);
+        output = multiply(num1, num2);
     } else if (operator === "divide") {
-        return result = divide(num1, num2);
+        output = divide(num1, num2);
     }
-    state = initial;
+    resetState(output);
+    result = output;
 }
 
-let state = "initial";
+function resetState(output) {
+    state = "initial";
+    num1 = output;
+    num2 = "";
+}
 
 const buttons = document.querySelectorAll("button");
 buttons.forEach(button => {
@@ -49,33 +57,46 @@ buttons.forEach(button => {
 let display = document.getElementById("display")
 
 function updateDisplay(event) {
-    if (state === "initial" || state === "operate") {
+    if (state != "evaluate") {
         display.textContent += event.target.innerText;
     }
     else if (state === "evaluate") {
         display.textContent = result;
 }}
 
-let result;
-let operatorCount = 0;
-
 function handleEvent(event) {
-    if (state === "initial" && event.target.classList.contains("number")) {
-        num1 += event.target.innerText;
-        num1 = parseFloat(num1);
-    }
-    if (event.target.classList.contains("operator")) {
+    if (state === "initial") {
+        if (event.target.classList.contains("number")) {
+            num1 += event.target.innerText;
+            num1 = parseFloat(num1);
+        }
+        else if (event.target.classList.contains("operator")) {
         state = "operate";
-        operatorCount++
         operator = event.target.id;
+        }
     }
-    if (state === "operate" && event.target.classList.contains("number")) {
-        num2 += event.target.innerText;
-        num2 = parseFloat(num2);
+    else if (state === "operate") {
+        if (event.target.classList.contains("number")) {
+            num2 += event.target.innerText;
+            num2 = parseFloat(num2);
+        }
+        else if (event.target.classList.contains("operator")) {
+            state = "evaluate";
+            result = operate(num1, num2, operator);
+            operator = event.target.id;
+        }
+        else if (event.target.classList.contains("evaluate")) {
+            state = "evaluate";
+            result = operate(num1, num2, operator);
+        }
     }
-    if (event.target.classList.contains("evaluate") || operatorCount > 1) {
+    else if (event.target.classList.contains("evaluate")) {
         state = "evaluate";
-        result = operate(num1, num2, operator);
-        num1 = result;
+        operate(num1, num2, operator);
+    }
+    else if (state === "evaluate"){
+        if (event.target.classList.contains("number")) {
+            state = "operate";
+        }
     }
 }
