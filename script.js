@@ -45,15 +45,17 @@ buttons.forEach(button => {
     });
 });
 
-function updateDisplay(event) {
-    let display = document.getElementById("display")
+let display = document.getElementById("display")
 
+function updateDisplay(event) {
     if (state === "initial" || state === "operate") {
         display.textContent += event.target.innerText;
-    } else if (state === "evaluate"){
-        display.textContent = result;
     }
-}
+    else if (state === "evaluate") {
+        display.textContent = result;
+}}
+
+let result;
 
 function handleEvent(event) {
     if (state === "initial" && event.target.classList.contains("number")) {
@@ -69,7 +71,7 @@ function handleEvent(event) {
         num2 = parseFloat(num2);
     }
     if (event.target.classList.contains("evaluate")) {
-        let result = operate(num1, num2, operator);
-        console.log(result);
+        state = "evaluate";
+        result = operate(num1, num2, operator);
     }
 }
