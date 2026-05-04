@@ -22,15 +22,16 @@ let num1 = "";
 let num2 = "";
 let operator;
 
-function operate(num1, operator, num2) {
+function operate(num1, num2, operator) {
+    let result;
     if (operator === "add"){
-        add(num1, num2);
+        return result = add(num1, num2);
     } else if (operator === "subtract") {
-        subtract(num1, num2);
+        return result = subtract(num1, num2);
     } else if (operator === "multiply") {
-        multiply(num1, num2);
+        return result = multiply(num1, num2);
     } else if (operator === "divide") {
-        divide(num1, num2);
+        return result = divide(num1, num2);
     }
 }
 
@@ -68,7 +69,7 @@ function handleEvent(event) {
         num2 = parseFloat(num2);
     }
     if (event.target.classList.contains("evaluate")) {
-        let result = operat(num1, operator, num2);
+        let result = operate(num1, num2, operator);
         console.log(result);
     }
 }
