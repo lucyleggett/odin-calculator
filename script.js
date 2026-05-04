@@ -33,6 +33,7 @@ function operate(num1, num2, operator) {
     } else if (operator === "divide") {
         return result = divide(num1, num2);
     }
+    state = initial;
 }
 
 let state = "initial";
@@ -56,6 +57,7 @@ function updateDisplay(event) {
 }}
 
 let result;
+let operatorCount = 0;
 
 function handleEvent(event) {
     if (state === "initial" && event.target.classList.contains("number")) {
@@ -63,15 +65,17 @@ function handleEvent(event) {
         num1 = parseFloat(num1);
     }
     if (event.target.classList.contains("operator")) {
-        operator = event.target.id;
         state = "operate";
+        operatorCount++
+        operator = event.target.id;
     }
     if (state === "operate" && event.target.classList.contains("number")) {
         num2 += event.target.innerText;
         num2 = parseFloat(num2);
     }
-    if (event.target.classList.contains("evaluate")) {
+    if (event.target.classList.contains("evaluate") || operatorCount > 1) {
         state = "evaluate";
         result = operate(num1, num2, operator);
+        num1 = result;
     }
 }
