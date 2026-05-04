@@ -23,14 +23,14 @@ let num2 = "";
 let operator;
 
 function operate(num1, operator, num2) {
-    if (operator === "+"){
+    if (operator === "add"){
         add(num1, num2);
-    } else if (operator === "-") {
+    } else if (operator === "subtract") {
         subtract(num1, num2);
-    } else if (operator === "×") {
+    } else if (operator === "multiply") {
         multiply(num1, num2);
-    } else if (operator === "÷") {
-        divide(num1,num2);
+    } else if (operator === "divide") {
+        divide(num1, num2);
     }
 }
 
@@ -38,43 +38,37 @@ let state = "initial";
 
 const buttons = document.querySelectorAll("button");
 buttons.forEach(button => {
-    button.addEventListener("click", handleEvent);
+    button.addEventListener("click", (event) => {
+        handleEvent(event);
+        updateDisplay(event);
+    });
 });
 
-function handleEvent(event) {
+function updateDisplay(event) {
     let display = document.getElementById("display")
-    display.textContent += event.target.innerText;
-    // if (state === "initial" && event.target.class === "number") {
-    //     num1 += event.target.innerText;
-    // }
-    // else if (state === "initial" && event.target.class === "operator") {
-    //     operator = event.target.innerText;
-    //     state = "operate";
-    // }
-    // else if (state === "operate" && event.target.class === "number") {
-    //     num2 += event.target.innerText;
-    // }
-    // else if (event.target.class === "evaluate") {
-    //     let result = operate(num1, operator, num2);
-    // }
+
+    if (state === "initial" || state === "operate") {
+        display.textContent += event.target.innerText;
+    } else if (state === "evaluate"){
+        display.textContent = result;
+    }
 }
 
-    // if (state === "initial" && event.target.class === "number") {
-    //     num1 += event.target;
-    //     console.log(num1);
-    //     // text = num1;
-    // } else if (state === "initial" && event.target.class === "operator") {
-    //     operator = event.target;
-    //     console.log(num1 + operator)
-    //     // state = "operate";
-    //     // text += operator;
-    // } else if (state === "operate" && event.target.class === "number") {
-    //     num2 += event.target;
-    //     console.log(num1 + operator + num2)
-    //     // text += num2;
-    // } else if (event.target.class === "evaluate") {
-    //     let result = operate(num1, operator, num2);
-    //     console.log(result)
-    //     // text = result;
-    // }
-    // })
+function handleEvent(event) {
+    if (state === "initial" && event.target.classList.contains("number")) {
+        num1 += event.target.innerText;
+        num1 = parseFloat(num1);
+    }
+    if (event.target.classList.contains("operator")) {
+        operator = event.target.id;
+        state = "operate";
+    }
+    if (state === "operate" && event.target.classList.contains("number")) {
+        num2 += event.target.innerText;
+        num2 = parseFloat(num2);
+    }
+    if (event.target.classList.contains("evaluate")) {
+        let result = operat(num1, operator, num2);
+        console.log(result);
+    }
+}
