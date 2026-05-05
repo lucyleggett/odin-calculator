@@ -38,14 +38,22 @@ function operate(num1, num2, operator) {
     } else if (operator === "÷") {
         output = divide(num1, num2);
     }
-    rounded = Math.round(output * 1000) / 1000;
+    rounded = Math.round(output * 100000) / 100000;
     return output = rounded;
 }
 
 const buttons = document.querySelectorAll("button");
+let currButton;
+let prevButton;
+
 buttons.forEach(button => {
     button.addEventListener("click", (event) => {
-        handleEvent(event);
+        if (button.classList.contains("all-clear")){
+            allClear();
+        }
+        else {
+            handleEvent(event);
+        }
     });
 });
 
@@ -80,4 +88,11 @@ function handleEvent(event){
             display.textContent = result;
         }
     }
+}
+
+function allClear(){
+    num1 = "";
+    num2 = "";
+    display.textContent = "";
+    state = "initial";
 }
