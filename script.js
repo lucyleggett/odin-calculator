@@ -48,21 +48,22 @@ function operate(num1, num2, operator) {
 }
 
 const buttons = document.querySelectorAll("button");
+
 let currButton;
 let prevButton;
 
 buttons.forEach(button => {
     button.addEventListener("click", (event) => {
-        if (button.classList.contains("all-clear")){
+        if (button.classList.contains("all-clear")) {
             allClear();
-        }
-        else {
+            enableNumberButtons();
+        } else if (button.classList.contains("clear")) {
+            clear(prevButton);
+        } else {
             handleEvent(event);
         }
     });
 });
-
-let display = document.getElementById("display")
 
 const decimalButton = document.getElementById("decimal");
 
@@ -88,7 +89,9 @@ function enableNumberButtons() {
     }
 }
 
-function handleEvent(event){
+let display = document.getElementById("display");
+
+function handleEvent(event){    
     if (state === "initial"){
         enableDecimal();
         if (event.target.classList.contains("number")){
@@ -142,11 +145,39 @@ function handleEvent(event){
             num2 = "";
         }
     }
+    currButton = event.target.innerText;
+    trackButtons(currButton);
 }
 
-function allClear(){
+function trackButtons(currButton) {
+    prevButton = currButton;
+    currButton = "";
+}
+
+function allClear() {
     num1 = "";
     num2 = "";
     display.textContent = "";
     state = "initial";
+}
+
+function clear(prevButton) {
+    const operatorSet = /[+\-×÷]/;
+    const numberSet = /[0123456789]/;
+    const workingCalc = display.textContent.slice();
+
+    if (operatorSet.test(prevButton)) {
+        display.textContent = display.textContent.slice(0, -1);
+        operator = "";
+    } else if (prevButton === "=") {
+        //Do nothing; not a valid action to undo
+    } else if (numberSet.test(prevButton)) { 
+        if (operatorSet.test(workingCalc)) {
+            num2 = num2.slice(0, -1);
+            display.textContent = display.textContent.slice(0, -1);
+        } else {
+            num1 = num1.slice(0, -1);
+            display.textContent = display.textContent.slice(0, -1);
+        }
+    }
 }
