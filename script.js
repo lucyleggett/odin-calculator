@@ -30,14 +30,15 @@ function operate(num1, num2, operator) {
     num1 = parseFloat(num1);
     num2 = parseFloat(num2);
     if (operator === "+"){
-        return output = add(num1, num2);
+        output = add(num1, num2);
     } else if (operator === "-") {
-        return output = subtract(num1, num2);
+        output = subtract(num1, num2);
     } else if (operator === "×") {
-        return output = multiply(num1, num2);
+        output = multiply(num1, num2);
     } else if (operator === "÷") {
-        return output = divide(num1, num2);
+        output = divide(num1, num2);
     }
+    return output.toFixed(5);
 }
 
 const buttons = document.querySelectorAll("button");
@@ -76,40 +77,3 @@ function handleEvent(event){
         }
     }
 }
-
-// function handleEvent(event) {
-//     if (state === "initial") {
-//         if (event.target.classList.contains("number")) {
-//             num1 += event.target.innerText;
-//             num1 = parseFloat(num1);
-//         }
-//         else if (event.target.classList.contains("operator")) {
-//         state = "operate";
-//         operator = event.target.id;
-//         }
-//     }
-//     else if (state === "operate") {
-//         if (event.target.classList.contains("number")) {
-//             num2 += event.target.innerText;
-//             num2 = parseFloat(num2);
-//         }
-//         else if (event.target.classList.contains("operator")) {
-//             state = "evaluate";
-//             result = operate(num1, num2, operator);
-//             operator = event.target.id;
-//         }
-//         else if (event.target.classList.contains("evaluate")) {
-//             state = "evaluate";
-//             result = operate(num1, num2, operator);
-//         }
-//     }
-//     else if (event.target.classList.contains("evaluate")) {
-//         state = "evaluate";
-//         operate(num1, num2, operator);
-//     }
-//     else if (state === "evaluate"){
-//         if (event.target.classList.contains("number")) {
-//             state = "operate";
-//         }
-//     }
-// }
