@@ -23,7 +23,7 @@ let num2 = "";
 let operator;
 
 let state = "initial";
-let result;
+let result = "";
 
 function operate(num1, num2, operator) {
     let output;
@@ -64,11 +64,42 @@ buttons.forEach(button => {
 
 let display = document.getElementById("display")
 
+const decimalButton = document.getElementById("decimal");
+
+function disableDecimal() {
+    decimalButton.disabled = true;
+}
+
+function enableDecimal() {
+    decimalButton.disabled = false;
+}
+
+const numberButtons = document.getElementsByClassName("number");
+
+function disableNumberButtons() {
+    for (let numberButton of numberButtons) {
+        numberButton.disabled = true;
+    }
+}
+
+function enableNumberButtons() {
+    for (let numberButton of numberButtons) {
+        numberButton.disabled = false;
+    }
+}
+
 function handleEvent(event){
     if (state === "initial"){
+        enableDecimal();
         if (event.target.classList.contains("number")){
-            num1 += event.target.innerText;
-            display.textContent += event.target.innerText;
+            if (num1.includes(".")){
+                disableDecimal();
+                num1 += event.target.innerText;
+                display.textContent += event.target.innerText;
+            } else {
+                num1 += event.target.innerText;
+                display.textContent += event.target.innerText;
+            }
         } else if (event.target.classList.contains("operator")){
             state = "operate";
             operator = event.target.innerText;
@@ -79,24 +110,36 @@ function handleEvent(event){
         }
     }
     else if (state === "operate"){
+        enableDecimal();
         if (event.target.classList.contains("number")){
-            num2 += event.target.innerText;
-            display.textContent += event.target.innerText;
+            if (num2.includes(".")){
+                disableDecimal();
+                num2 += event.target.innerText;
+                display.textContent += event.target.innerText;
+            } else {
+                num2 += event.target.innerText;
+                display.textContent += event.target.innerText;
+            }
         } else if (event.target.classList.contains("operator")){
+            enableNumberButtons();
             if (num2 === ""){
                 display.textContent -= operator;
                 operator = event.target.innerText;
                 display.textContent = num1 + event.target.innerText;
             } else {
-            result = operate(num1, num2, operator);
-            operator = event.target.innerText;
-            display.textContent = result + operator;
-            num1 = result;
-            num2 = "";
+                result = operate(num1, num2, operator);
+                operator = event.target.innerText;
+                display.textContent = result + operator;
+                num1 = result;
+                num2 = "";
+                result = ""
             }
         } else if (event.target.classList.contains("evaluate")){
             result = operate(num1, num2, operator);
             display.textContent = result;
+            disableNumberButtons();
+            num1 = result;
+            num2 = "";
         }
     }
 }
