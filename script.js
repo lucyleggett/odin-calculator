@@ -38,7 +38,8 @@ function operate(num1, num2, operator) {
     } else if (operator === "÷") {
         output = divide(num1, num2);
     }
-    return output.toFixed(5);
+    rounded = Math.round(output * 1000) / 1000;
+    return output = rounded;
 }
 
 const buttons = document.querySelectorAll("button");
@@ -59,6 +60,9 @@ function handleEvent(event){
             state = "operate";
             operator = event.target.innerText;
             display.textContent += event.target.innerText;
+        } else if (event.target.classList.contains("evaluate")){
+            result = num1;
+            display.textContent = result;
         }
     }
     else if (state === "operate"){
