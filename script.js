@@ -36,7 +36,12 @@ function operate(num1, num2, operator) {
     } else if (operator === "×") {
         output = multiply(num1, num2);
     } else if (operator === "÷") {
-        output = divide(num1, num2);
+        if(num2 === 0) {
+            output = 0;
+            return display.textContent = "Sorry, no can do!";
+        } else{
+            output = divide(num1, num2);
+        }
     }
     rounded = Math.round(output * 100000) / 100000;
     return output = rounded;
@@ -78,11 +83,17 @@ function handleEvent(event){
             num2 += event.target.innerText;
             display.textContent += event.target.innerText;
         } else if (event.target.classList.contains("operator")){
+            if (num2 === ""){
+                display.textContent -= operator;
+                operator = event.target.innerText;
+                display.textContent = num1 + event.target.innerText;
+            } else {
             result = operate(num1, num2, operator);
             operator = event.target.innerText;
             display.textContent = result + operator;
             num1 = result;
             num2 = "";
+            }
         } else if (event.target.classList.contains("evaluate")){
             result = operate(num1, num2, operator);
             display.textContent = result;
