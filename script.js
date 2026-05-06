@@ -225,10 +225,10 @@ function clear() {
                 if (num1State !== "ineditable"){
                     num1 = num1.slice(0, -1);
                     display.textContent = display.textContent.slice(0, -1);
+                    state = "initial";
                 }
             }
         }
-        
     }
 }
 
