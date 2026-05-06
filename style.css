@@ -6,15 +6,16 @@ body {
 #calculator-body {
     display: flex;
     flex-direction: column;
-    width: 50vh;
-    height: 62.5vh;
+    height: 75vh;
     margin: 10px;
     background-color: palevioletred;
+    padding: 10px;
 }
 
 #display {
     display: flex;
-    height: 16.66%;
+    height: 12.5vh;
+    width: 50vh;
     flex-shrink: 0;
 }
 
