@@ -6,7 +6,8 @@ body {
 #calculator-body {
     display: flex;
     flex-direction: column;
-    max-width: 50vh;
+    width: 50vh;
+    height: 62.5vh;
 }
 
 #display {
@@ -23,7 +24,7 @@ body {
 #left-side {
     display: flex;
     flex-direction: column;
-    height: 80vh;
+    height: 100%;
     margin-right: 2px;
 }
 
