@@ -54,16 +54,32 @@ let prevButton;
 
 buttons.forEach(button => {
     button.addEventListener("click", (event) => {
-        if (button.classList.contains("all-clear")) {
+        if (button.id === "all-clear") {
             allClear();
             enableNumberButtons();
-        } else if (button.classList.contains("clear")) {
+        } else if (button.id === "clear") {
             clear(prevButton);
         } else {
             handleEvent(event);
         }
     });
 });
+
+// const keyMap = {
+//     "Enter": "="
+//     "Clear": ""
+//     ""
+// }
+
+document.addEventListener("keydown", (event) => {
+    const operatorSet = /[+\-×÷]/;
+    const numberSet = /[0123456789]/;
+
+    const keyName = event.key;
+    if (operatorSet || numberSet.test(keyName)){
+        submitButton.click;
+    } 
+})
 
 const decimalButton = document.getElementById("decimal");
 
