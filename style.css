@@ -17,28 +17,41 @@ body {
 
 .buttons {
     display: flex;
+    width: 100%;
 }
 
 #left-side {
     display: flex;
     flex-direction: column;
+    height: 80vh;
+    margin-right: 2px;
 }
 
 #clear-row {
     display: flex;
-    flex-grow: 1;
+    gap: 2px;
+    flex-basis: 20%;
     justify-content: space-between;
+    margin-bottom: 2px;
+}
+
+#clear-row > button {
+    flex: 0 0 calc((100% - 2px) / 2);
+    box-sizing: border-box;
 }
 
 #number-rows {
     display: flex;
     flex-wrap: wrap;
     gap: 2px;
+    flex-basis: 80%;
+    flex-shrink: 0;
 }
 
 #number-rows > button {
     flex: 0 0 calc((100% - 4px) / 3);
     box-sizing: border-box;
+    aspect-ratio: 1 / 1;
 }
 
 button {
@@ -47,7 +60,6 @@ button {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    aspect-ratio: 1 / 1;
     border-style: solid;
     border-color: black;
     border-width: 1px;
@@ -56,14 +68,23 @@ button {
 
 button.number {
     display: flex;
-    flex-wrap: ;
 }
 
 #right-side {
     display: flex;
+    flex-basis: 25%;
+    flex-shrink: 0;
 }
 
 #operator-column {
     display: flex;
     flex-direction: column-reverse;
+    gap: 2px;
+    flex-grow: 1;
+}
+
+#operator-column > button {
+    flex: 0 0 calc((100% - 8px) / 5);
+    box-sizing: border-box;
+    aspect-ratio: 1 / 1;
 }
