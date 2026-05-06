@@ -65,20 +65,42 @@ buttons.forEach(button => {
     });
 });
 
-// const keyMap = {
-//     "Enter": "="
-//     "Clear": ""
-//     ""
-// }
+const keyMap = {
+    "Enter": "evaluate",
+    "=": "evaluate",
+    "Clear": "all-clear",
+    "Backspace": "clear",
+    "0": "0",
+    "1": "1",
+    "2": "2",
+    "3": "3",
+    "4": "4",
+    "5": "5",
+    "6": "6",
+    "7": "7",
+    "8": "8",
+    "9": "9",
+    "+": "add",
+    "Add": "add",
+    "-": "subtract",
+    "Subtract": "subtract",
+    "/": "divide",
+    "Divide": "divide",
+    "*": "multiply",
+    "Multiply": "multiply",
+    "Decimal": "decimal",
+    ".": "decimal",
+}
 
 document.addEventListener("keydown", (event) => {
-    const operatorSet = /[+\-×÷]/;
-    const numberSet = /[0123456789]/;
+    const buttonId = keyMap[event.key];
 
-    const keyName = event.key;
-    if (operatorSet || numberSet.test(keyName)){
-        submitButton.click;
-    } 
+    if (buttonId) {
+        const button = document.getElementById(buttonId);
+        if (button) {
+            button.click();
+        }
+    }
 })
 
 const decimalButton = document.getElementById("decimal");
@@ -123,7 +145,7 @@ function handleEvent(event){
             state = "operate";
             operator = event.target.innerText;
             display.textContent += event.target.innerText;
-        } else if (event.target.classList.contains("evaluate")){
+        } else if (event.target.id === "evaluate"){
             result = num1;
             display.textContent = result;
         }
@@ -153,7 +175,7 @@ function handleEvent(event){
                 num2 = "";
                 result = ""
             }
-        } else if (event.target.classList.contains("evaluate")){
+        } else if (event.target.id === "evaluate"){
             result = operate(num1, num2, operator);
             display.textContent = result;
             disableNumberButtons();
