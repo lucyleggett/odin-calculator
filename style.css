@@ -33,7 +33,12 @@ body {
 #number-rows {
     display: flex;
     flex-wrap: wrap;
-    flex-basis: 33.33%;
+    gap: 2px;
+}
+
+#number-rows > button {
+    flex: 0 0 calc((100% - 4px) / 3);
+    box-sizing: border-box;
 }
 
 button {
@@ -46,7 +51,6 @@ button {
     border-style: solid;
     border-color: black;
     border-width: 1px;
-    margin: 2px;
     min-width: 30px;
 }
 
