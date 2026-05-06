@@ -19,6 +19,7 @@ function divide(...numbers) {
 }
 
 let num1 = "";
+let num1State;
 let num2 = "";
 let operator;
 
@@ -49,16 +50,13 @@ function operate(num1, num2, operator) {
 
 const buttons = document.querySelectorAll("button");
 
-let currButton;
-let prevButton;
-
 buttons.forEach(button => {
     button.addEventListener("click", (event) => {
         if (button.id === "all-clear") {
             allClear();
             enableNumberButtons();
         } else if (button.id === "clear") {
-            clear(prevButton);
+            clear();
         } else {
             handleEvent(event);
         }
@@ -103,33 +101,43 @@ document.addEventListener("keydown", (event) => {
     }
 })
 
-const decimalButton = document.getElementById("decimal");
-
 function disableDecimal() {
+    const decimalButton = document.getElementById("decimal");
     decimalButton.disabled = true;
 }
 
 function enableDecimal() {
+    const decimalButton = document.getElementById("decimal");
     decimalButton.disabled = false;
 }
 
-const numberButtons = document.getElementsByClassName("number");
-
 function disableNumberButtons() {
+    const numberButtons = document.getElementsByClassName("number");
     for (let numberButton of numberButtons) {
         numberButton.disabled = true;
     }
 }
 
 function enableNumberButtons() {
+    const numberButtons = document.getElementsByClassName("number");
     for (let numberButton of numberButtons) {
         numberButton.disabled = false;
     }
 }
 
+function disableEval() {
+    const evalButton = document.getElementById("evaluate");
+    evalButton.disabled = true;
+}
+
+function enableEval() {
+    const evalButton = document.getElementById("evaluate");
+    evalButton.disabled = false;
+}
+
 let display = document.getElementById("display");
 
-function handleEvent(event){    
+function handleEvent(event){
     if (state === "initial"){
         enableDecimal();
         if (event.target.classList.contains("number")){
@@ -153,6 +161,7 @@ function handleEvent(event){
     else if (state === "operate"){
         enableDecimal();
         if (event.target.classList.contains("number")){
+            enableEval();
             if (num2.includes(".")){
                 disableDecimal();
                 num2 += event.target.innerText;
@@ -172,24 +181,21 @@ function handleEvent(event){
                 operator = event.target.innerText;
                 display.textContent = result + operator;
                 num1 = result;
+                num1State = "ineditable";
                 num2 = "";
                 result = ""
+                disableEval();
             }
         } else if (event.target.id === "evaluate"){
             result = operate(num1, num2, operator);
             display.textContent = result;
             disableNumberButtons();
             num1 = result;
+            num1State = "ineditable";
             num2 = "";
+            disableEval();
         }
     }
-    currButton = event.target.innerText;
-    trackButtons(currButton);
-}
-
-function trackButtons(currButton) {
-    prevButton = currButton;
-    currButton = "";
 }
 
 function allClear() {
@@ -199,23 +205,30 @@ function allClear() {
     state = "initial";
 }
 
-function clear(prevButton) {
+function clear() {
+    const prevButton = display.textContent.at(-1);
     const operatorSet = /[+\-×÷]/;
     const numberSet = /[0123456789]/;
     const workingCalc = display.textContent.slice();
 
-    if (operatorSet.test(prevButton)) {
-        display.textContent = display.textContent.slice(0, -1);
-        operator = "";
-    } else if (prevButton === "=") {
-        //Do nothing; not a valid action to undo
-    } else if (numberSet.test(prevButton)) { 
-        if (operatorSet.test(workingCalc)) {
-            num2 = num2.slice(0, -1);
+    if (prevButton === "=") {
+        //Do nothing; not a valid action to undo;
+    } else {
+        if (operatorSet.test(prevButton)) {
             display.textContent = display.textContent.slice(0, -1);
-        } else {
-            num1 = num1.slice(0, -1);
-            display.textContent = display.textContent.slice(0, -1);
+            operator = "";
+        } else if (numberSet.test(prevButton)) { 
+            if (operatorSet.test(workingCalc)) {
+                num2 = num2.slice(0, -1);
+                display.textContent = display.textContent.slice(0, -1);
+            } else {
+                if (num1State !== "ineditable"){
+                    num1 = num1.slice(0, -1);
+                    display.textContent = display.textContent.slice(0, -1);
+                }
+            }
         }
+        
     }
 }
+
