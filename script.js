@@ -23,8 +23,19 @@ let num1State;
 let num2 = "";
 let operator;
 
-let state = "initial";
 let result = "";
+
+let display = document.getElementById("display");
+let state = "initial";
+
+function initializeDisplay() {
+    display.textContent = "0"
+    num1 = 0;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    initializeDisplay();
+});
 
 function operate(num1, num2, operator) {
     let output;
@@ -57,6 +68,8 @@ buttons.forEach(button => {
             enableNumberButtons();
         } else if (button.id === "clear") {
             clear();
+        } else if (button.id === "smiley") {
+            surprise();
         } else {
             handleEvent(event);
         }
@@ -68,6 +81,7 @@ const keyMap = {
     "=": "evaluate",
     "Clear": "all-clear",
     "Backspace": "clear",
+    "Delete": "clear",
     "0": "0",
     "1": "1",
     "2": "2",
@@ -135,12 +149,17 @@ function enableEval() {
     evalButton.disabled = false;
 }
 
-let display = document.getElementById("display");
-
 function handleEvent(event){
+    if (state === "surprise"){
+        allClear();
+    }
     if (state === "initial"){
         enableDecimal();
         if (event.target.classList.contains("number")){
+            if (num1 === 0) {
+                num1 = "";
+                display.textContent = "";
+            }
             if (num1.includes(".")){
                 disableDecimal();
                 num1 += event.target.innerText;
@@ -200,6 +219,7 @@ function allClear() {
     num2 = "";
     display.textContent = "";
     state = "initial";
+    initializeDisplay();
 }
 
 function clear() {
@@ -208,7 +228,10 @@ function clear() {
     const numberSet = /[0123456789]/;
     const workingCalc = display.textContent.slice();
 
-    if (prevButton === "=") {
+    if (state === "surprise") {
+        allClear();
+    }
+    else if (prevButton === "=") {
         //Do nothing; not a valid action to undo;
     } else {
         if (operatorSet.test(prevButton)) {
@@ -229,3 +252,12 @@ function clear() {
     }
 }
 
+function surprise() {
+    allClear();
+    display.textContent = "🩷";
+    num1 = "";
+    num2 = "";
+    prevButton = "";
+    result = "";
+    state = "surprise";
+}
