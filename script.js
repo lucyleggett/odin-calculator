@@ -28,8 +28,8 @@ let result = "";
 
 function operate(num1, num2, operator) {
     let output;
-    num1 = parseFloat(num1);
-    num2 = parseFloat(num2);
+    num1 = +num1;
+    num2 = +num2;
     if (operator === "+"){
         output = add(num1, num2);
     } else if (operator === "-") {
@@ -164,12 +164,9 @@ function handleEvent(event){
             enableEval();
             if (num2.includes(".")){
                 disableDecimal();
-                num2 += event.target.innerText;
-                display.textContent += event.target.innerText;
-            } else {
-                num2 += event.target.innerText;
-                display.textContent += event.target.innerText;
-            }
+            } else { }
+            num2 += event.target.innerText;
+            display.textContent += event.target.innerText;
         } else if (event.target.classList.contains("operator")){
             enableNumberButtons();
             if (num2 === ""){
