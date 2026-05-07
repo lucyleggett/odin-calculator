@@ -28,6 +28,7 @@ body {
     flex-shrink: 0;
     font-size: clamp(4rem, 11vw, 6rem);
     padding: 10px 0 10px 0;
+    overflow: hidden;
 }
 
 .buttons {
