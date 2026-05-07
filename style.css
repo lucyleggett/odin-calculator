@@ -26,7 +26,7 @@ body {
     width: 100%;
     min-height: 15vh;
     flex-shrink: 0;
-    font-size: 90px;
+    font-size: 11vw;
     padding: 10px 0 10px 0;
 }
 
@@ -55,7 +55,7 @@ body {
     flex: 0 1 calc((100% - 4px) / 2);
     min-width: 0;
     box-sizing: border-box;
-    font-size: 60px;
+    font-size: 7vw;
     background-color: rgb(164, 164, 164);
     border: 4px ridge rgb(164, 164, 164);
     border-radius: 30%;
@@ -83,7 +83,7 @@ body {
     background-color: dimgray;
     border-radius: 50%;
     border: 4px ridge dimgray;
-    font-size: 40px;
+    font-size: 5vw;
 }
 
 button {
@@ -98,7 +98,7 @@ button {
 
 #smiley {
     border-radius: 50%;
-    font-size: 40px;
+    font-size: 5vw;
     cursor: default;
     background-color: hotpink;
     color: rgb(18 63 33);
@@ -128,6 +128,6 @@ button {
     background-color: rgb(182 220 40);
     border: 4px ridge rgb(182 220 40);
     border-radius: 50%;
-    font-size: 60px;
+    font-size: 8vw;
     color: black;
 }
