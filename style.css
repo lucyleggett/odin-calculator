@@ -57,7 +57,7 @@ body {
     box-sizing: border-box;
     font-size: clamp(2rem, 7vw, 4rem);
     background-color: rgb(164, 164, 164);
-    border: 4px ridge rgb(164, 164, 164);
+    border: 4px rgb(164, 164, 164);
     border-radius: 30%;
 }
 
@@ -82,7 +82,7 @@ body {
 #number-rows > button.number {
     background-color: dimgray;
     border-radius: 50%;
-    border: 4px ridge dimgray;
+    border: 4px dimgray;
     font-size: clamp(1rem, 5vw, 3rem)
 }
 
@@ -104,7 +104,7 @@ button {
     color: rgb(18 63 33);
     white-space: normal;
     overflow-wrap: break-word;
-    border: 4px ridge hotpink;
+    border: 4px hotpink;
 }
 
 #right-side {
@@ -126,7 +126,7 @@ button {
     aspect-ratio: 1 / 1;
     box-sizing: border-box;
     background-color: rgb(182 220 40);
-    border: 4px ridge rgb(182 220 40);
+    border: 4px rgb(182 220 40);
     border-radius: 50%;
     font-size: clamp(3rem, 8vw, 5rem);
     color: black;
